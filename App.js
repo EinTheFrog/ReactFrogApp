@@ -1,11 +1,24 @@
-import { StyleSheet, View, Button } from 'react-native';
-import Picture from './components/main/Picture'
+import { StyleSheet, View } from 'react-native';
+import Picture from './components/main/Picture';
+import CustomButton from './components/common/CustomButton';
+import { useEffect } from 'react';
 
 export default function App() {
+  const [pictureUri, setPictureUri] = '';
+
+  const fetchNewPicture = async() => {
+    const randomFrogResponse = await fetch('frogs.media/api/random');
+    const randomFrogData = randomFrogResponse.json();
+    const randomFrogUri = randomFrogData.url;
+    setPictureUri(randomFrogUri);
+  };
+
+  useEffect(fetchNewPicture);
+
   return (
     <View style={styles.container}>
-      <Picture uri='https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2_3x4.jpg'/>
-      <Button title='Next frog'/>
+      <Picture uri={pictureUri}/>
+      <CustomButton title='Next frog' onPress={fetchNewPicture}/>
     </View>
   );
 } 
