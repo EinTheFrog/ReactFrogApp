@@ -3,11 +3,9 @@ import { StyleSheet, Image } from 'react-native';
 export default function Picture({ uri }) {
     return (
         <Image 
-        source={{
-            uri: uri,
-        }}
-        style={styles.picture}
-      />
+            source={ uri != '' ? { uri: uri } : {} }
+            style={styles.picture}
+        />
     )
 }
 
